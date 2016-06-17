@@ -4,4 +4,7 @@ http://forums.pixeltailgames.com/t/formula-for-canvas-scale/10942
 
 The program takes an image's resolution, and outputs scale values to plug into Tower Unite, there is also an option to scale down, so you can achieve smaller sizes by scaling down the X and Y scales.
 
+The binary can be downloaded here:
+https://github.com/QueenHidari/CanvasScaleCalculator/blob/master/Binaries/CanvasScaleCalculator.jar
+
 Copyright © Sara Lehman 2016, released under the General Public License.
