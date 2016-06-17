@@ -6,7 +6,7 @@ The program takes an image's resolution, and outputs scale values to plug into T
 
 Screenshot:
 
-![Screenshot](http://i.imgur.com/1ZiRC56.png)
+![Screenshot](http://i.imgur.com/uHXharw.png)
 
 Current known bugs;
 
@@ -14,19 +14,17 @@ Current known bugs;
 
 Current version;
 
-v1.0 "Sassy Panda", June 17, 2016
+  v1.1 "Fluffy Panda", June 17, 2016
 
 Previous version;
 
- * None
+  v1.0 "Sassy Panda", June 17, 2016
 
-Planned features;
-
- * browse to find a .jpg or .png and automaticallly input the resolution
 
 Changelog;
 
- * Initial release
+ * Added Browse for Image button
+ * When an image is selected, the resolution is put in the image resolution fields
 
 The binary can be downloaded here:
 https://github.com/QueenHidari/CanvasScaleCalculator/blob/master/Binaries/CanvasScaleCalculator.jar
