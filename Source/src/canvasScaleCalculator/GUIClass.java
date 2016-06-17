@@ -1,21 +1,34 @@
 package canvasScaleCalculator;
 
 import java.awt.EventQueue;
+import java.awt.FileDialog;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.awt.event.ItemEvent;
+
+import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 public class GUIClass {
 
@@ -25,6 +38,7 @@ public class GUIClass {
 	private JTextField yOutField;
 	private JTextField xOutField;
 	private JTextField scaleField;
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -59,18 +73,18 @@ public class GUIClass {
 		frmCanvasSizeCalculator = new JFrame();
 		frmCanvasSizeCalculator.setTitle("Canvas Size Calculator");
 		frmCanvasSizeCalculator.setResizable(false);
-		frmCanvasSizeCalculator.setBounds(100, 100, 380, 380);
+		frmCanvasSizeCalculator.setBounds(100, 100, 380, 426);
 		frmCanvasSizeCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCanvasSizeCalculator.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Image Properties");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 14, 160, 14);
+		lblNewLabel.setBounds(10, 108, 160, 14);
 		frmCanvasSizeCalculator.getContentPane().add(lblNewLabel);
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 80, 160, 30);
+		panel_1.setBounds(10, 174, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -84,7 +98,7 @@ public class GUIClass {
 		panel_1.add(xResField);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 39, 160, 30);
+		panel.setBounds(10, 133, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -99,11 +113,11 @@ public class GUIClass {
 		
 		JLabel lblFinalScale = new JLabel("Final Scale");
 		lblFinalScale.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFinalScale.setBounds(200, 14, 160, 14);
+		lblFinalScale.setBounds(200, 108, 160, 14);
 		frmCanvasSizeCalculator.getContentPane().add(lblFinalScale);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(200, 80, 160, 30);
+		panel_2.setBounds(200, 174, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -118,7 +132,7 @@ public class GUIClass {
 		panel_2.add(yOutField);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(200, 39, 160, 30);
+		panel_3.setBounds(200, 133, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -135,7 +149,7 @@ public class GUIClass {
 		JTextPane txtpnToUseThis = new JTextPane();
 		txtpnToUseThis.setEditable(false);
 		txtpnToUseThis.setText("To use this calculator, put in the resolution of your image in the \"image properties\" section.  If you would like to scale the image down, check the scale down button, and enter a value from 0.0 to 1.0. The results will be displayed in the Final Scale boxes, just plug them into TU!");
-		txtpnToUseThis.setBounds(10, 244, 350, 96);
+		txtpnToUseThis.setBounds(10, 290, 350, 96);
 		frmCanvasSizeCalculator.getContentPane().add(txtpnToUseThis);
 		
 		// Scale Down checkbox changed
@@ -149,11 +163,11 @@ public class GUIClass {
 		});
 		
 		//----------------------------------------------------------------------------------------------------------------------------
-		chckbxScaleDown.setBounds(10, 117, 160, 23);
+		chckbxScaleDown.setBounds(10, 211, 160, 23);
 		frmCanvasSizeCalculator.getContentPane().add(chckbxScaleDown);
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(10, 147, 160, 30);
+		panel_4.setBounds(10, 241, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -238,7 +252,56 @@ public class GUIClass {
 		});
 		
 		//----------------------------------------------------------------------------------------------------------------------------
-		btnCalculateScale.setBounds(10, 188, 160, 45);
+		btnCalculateScale.setBounds(200, 241, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(btnCalculateScale);
+		
+		JTextPane fileDisplay = new JTextPane();
+		fileDisplay.setEditable(false);
+		fileDisplay.setText("File Selected:");
+		fileDisplay.setBounds(10, 52, 350, 45);
+		frmCanvasSizeCalculator.getContentPane().add(fileDisplay);
+		
+		// Browse for image
+		//----------------------------------------------------------------------------------------------------------------------------
+		
+		JFileChooser filePicker = new JFileChooser();
+		FileFilter filter = new FileNameExtensionFilter( "Image files", ImageIO.getReaderFileSuffixes());
+		JButton btnBrowseForImage = new JButton("Browse for Image");
+		btnBrowseForImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filePicker.setFileFilter(filter);
+				filePicker.showOpenDialog(frmCanvasSizeCalculator);
+				File path = filePicker.getSelectedFile();
+				fileDisplay.setText("File selected: " + path);
+				if (path.exists() == true) {
+					try {
+						BufferedImage image = ImageIO.read(path);
+						xResField.setText(Integer.toString(image.getWidth()));
+						yResField.setText(Integer.toString(image.getHeight()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "File does not exist!");
+				}
+			}
+		});
+		
+		//----------------------------------------------------------------------------------------------------------------------------
+		
+		
+		btnBrowseForImage.setBounds(10, 11, 160, 30);
+		frmCanvasSizeCalculator.getContentPane().add(btnBrowseForImage);
+		
+		
+		
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
