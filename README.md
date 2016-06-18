@@ -6,7 +6,7 @@ The program takes an image's resolution, and outputs scale values to plug into T
 
 Screenshot:
 
-![Screenshot](http://i.imgur.com/uHXharw.png)
+![Screenshot](http://forums.pixeltailgames.com/uploads/default/original/2X/f/f8f1c625a786a229d2963d38ae97ac7f87b5a5b1.PNG)
 
 Current known bugs;
 
@@ -14,15 +14,16 @@ Current known bugs;
 
 Current version;
 
+  v1.1.1 "Fluffy Panda", June 17, 2016
+
+Previous versions;
+
   v1.1 "Fluffy Panda", June 17, 2016
-
-Previous version;
-
   v1.0 "Sassy Panda", June 17, 2016
 
 
 Changelog;
-
+ * v1.1.1: small bugfix for nullpointer exception when canceling out of file selection menu
  * Added Browse for Image button
  * When an image is selected, the resolution is put in the image resolution fields
 
