@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextPane;
@@ -29,6 +30,7 @@ import java.awt.event.ItemEvent;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import java.awt.Color;
 
 public class GUIClass {
 
@@ -53,6 +55,19 @@ public class GUIClass {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				try {
+					UIManager.setLookAndFeel( "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel" );
+				}
+				catch (ClassNotFoundException ex) {
+					java.util.logging.Logger.getLogger(GUIClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+				}catch (InstantiationException ex) {
+					java.util.logging.Logger.getLogger(GUIClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	
+				} catch (IllegalAccessException ex) {
+					java.util.logging.Logger.getLogger(GUIClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+				} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+					java.util.logging.Logger.getLogger(GUIClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+				}
 			}
 		});
 		
@@ -71,9 +86,10 @@ public class GUIClass {
 	 */
 	private void initialize() {
 		frmCanvasSizeCalculator = new JFrame();
+		frmCanvasSizeCalculator.getContentPane().setBackground(new Color(135, 206, 250));
 		frmCanvasSizeCalculator.setTitle("Canvas Size Calculator");
 		frmCanvasSizeCalculator.setResizable(false);
-		frmCanvasSizeCalculator.setBounds(100, 100, 380, 426);
+		frmCanvasSizeCalculator.setBounds(100, 100, 380, 440);
 		frmCanvasSizeCalculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCanvasSizeCalculator.getContentPane().setLayout(null);
 		
@@ -89,7 +105,7 @@ public class GUIClass {
 		panel_1.setLayout(null);
 		
 		JLabel lblYResolution = new JLabel("Y Res");
-		lblYResolution.setBounds(5, 8, 59, 14);
+		lblYResolution.setBounds(10, 8, 54, 14);
 		panel_1.add(lblYResolution);
 		
 		xResField = new JTextField();
@@ -103,7 +119,7 @@ public class GUIClass {
 		panel.setLayout(null);
 		
 		JLabel lblXResolution = new JLabel("X Res");
-		lblXResolution.setBounds(5, 8, 59, 14);
+		lblXResolution.setBounds(10, 8, 54, 14);
 		panel.add(lblXResolution);
 		
 		yResField = new JTextField();
@@ -148,14 +164,15 @@ public class GUIClass {
 		
 		JTextPane txtpnToUseThis = new JTextPane();
 		txtpnToUseThis.setEditable(false);
-		txtpnToUseThis.setText("To use this calculator, put in the resolution of your image in the \"image properties\" section.  If you would like to scale the image down, check the scale down button, and enter a value from 0.0 to 1.0. The results will be displayed in the Final Scale boxes, just plug them into TU!");
-		txtpnToUseThis.setBounds(10, 290, 350, 96);
+		txtpnToUseThis.setText("To use this calculator, put in the resolution of your image in the \"image properties\" section. You can browse for an image in order to automatically grab the resolution from it. If you would like to scale the image down, check the scale down button, and enter a value from 0.0 to 1.0. The results will be displayed in the Final Scale boxes, just plug them into TU!");
+		txtpnToUseThis.setBounds(10, 291, 350, 109);
 		frmCanvasSizeCalculator.getContentPane().add(txtpnToUseThis);
 		
 		// Scale Down checkbox changed
 		//----------------------------------------------------------------------------------------------------------------------------
 		
 		JCheckBox chckbxScaleDown = new JCheckBox("Scale down?");
+		chckbxScaleDown.setForeground(new Color(0, 0, 0));
 		chckbxScaleDown.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				scaleField.setEditable(chckbxScaleDown.isSelected());
@@ -176,7 +193,7 @@ public class GUIClass {
 		panel_4.add(lblScale);
 		
 		scaleField = new JTextField();
-		scaleField.setBounds(62, 5, 86, 20);
+		scaleField.setBounds(67, 5, 86, 20);
 		scaleField.setEditable(false);
 		scaleField.setColumns(10);
 		panel_4.add(scaleField);
@@ -267,22 +284,31 @@ public class GUIClass {
 		JFileChooser filePicker = new JFileChooser();
 		FileFilter filter = new FileNameExtensionFilter( "Image files", ImageIO.getReaderFileSuffixes());
 		JButton btnBrowseForImage = new JButton("Browse for Image");
+		
 		btnBrowseForImage.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+				
 				filePicker.setFileFilter(filter);
 				filePicker.showOpenDialog(frmCanvasSizeCalculator);
 				File path = filePicker.getSelectedFile();
-				fileDisplay.setText("File selected: " + path);
-				if (path.exists() == true) {
-					try {
-						BufferedImage image = ImageIO.read(path);
-						xResField.setText(Integer.toString(image.getWidth()));
-						yResField.setText(Integer.toString(image.getHeight()));
-					} catch (IOException e1) {
-						e1.printStackTrace();
+				
+				
+				if (path != null) {
+					
+					if (path.exists() == true) {
+						fileDisplay.setText("File selected: " + path);
+						try {
+							BufferedImage image = ImageIO.read(path);
+							xResField.setText(Integer.toString(image.getWidth()));
+							yResField.setText(Integer.toString(image.getHeight()));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "File does not exist!");
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "File does not exist!");
+					
 				}
 			}
 		});
