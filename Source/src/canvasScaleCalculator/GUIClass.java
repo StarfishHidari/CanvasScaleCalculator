@@ -35,8 +35,8 @@ import java.awt.Color;
 public class GUIClass {
 
 	private JFrame frmCanvasSizeCalculator;
-	private JTextField yResField;
 	private JTextField xResField;
+	private JTextField yResField;
 	private JTextField yOutField;
 	private JTextField xOutField;
 	private JTextField scaleField;
@@ -108,10 +108,10 @@ public class GUIClass {
 		lblYResolution.setBounds(10, 8, 54, 14);
 		panel_1.add(lblYResolution);
 		
-		xResField = new JTextField();
-		xResField.setBounds(69, 5, 86, 20);
-		xResField.setColumns(10);
-		panel_1.add(xResField);
+		yResField = new JTextField();
+		yResField.setBounds(69, 5, 86, 20);
+		yResField.setColumns(10);
+		panel_1.add(yResField);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 133, 160, 30);
@@ -122,10 +122,10 @@ public class GUIClass {
 		lblXResolution.setBounds(10, 8, 54, 14);
 		panel.add(lblXResolution);
 		
-		yResField = new JTextField();
-		yResField.setBounds(69, 5, 86, 20);
-		panel.add(yResField);
-		yResField.setColumns(10);
+		xResField = new JTextField();
+		xResField.setBounds(69, 5, 86, 20);
+		panel.add(xResField);
+		xResField.setColumns(10);
 		
 		JLabel lblFinalScale = new JLabel("Final Scale");
 		lblFinalScale.setHorizontalAlignment(SwingConstants.CENTER);
@@ -260,8 +260,8 @@ public class GUIClass {
 					
 					
 				} catch (Exception error) {
-					System.out.println(Integer.parseInt(xResField.getText()));
 					System.out.println(Integer.parseInt(yResField.getText()));
+					System.out.println(Integer.parseInt(xResField.getText()));
 					JOptionPane.showMessageDialog(null, "Invalid number! Please enter a whole number!");
 					error.printStackTrace();
 				}
@@ -300,8 +300,8 @@ public class GUIClass {
 						fileDisplay.setText("File selected: " + path);
 						try {
 							BufferedImage image = ImageIO.read(path);
-							xResField.setText(Integer.toString(image.getWidth()));
-							yResField.setText(Integer.toString(image.getHeight()));
+							yResField.setText(Integer.toString(image.getWidth()));
+							xResField.setText(Integer.toString(image.getHeight()));
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
