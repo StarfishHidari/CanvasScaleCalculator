@@ -13,16 +13,18 @@ Current known bugs;
  * None to report, inform me if any are found!
 
 Current version;
-
-  v1.1.1 "Fluffy Panda", June 17, 2016
+  v1.1.2 "Fluffy Panda Hotfix 2", June 19, 2016
+  
 
 Previous versions;
 
+  v1.1.1 "Fluffy Panda Hotfix 1", June 17, 2016
   v1.1 "Fluffy Panda", June 17, 2016
   v1.0 "Sassy Panda", June 17, 2016
 
 
 Changelog;
+ * v1.1.2: Fixed an issue with the X and Y output values being swapped
  * v1.1.1: small bugfix for nullpointer exception when canceling out of file selection menu
  * Added Browse for Image button
  * When an image is selected, the resolution is put in the image resolution fields
