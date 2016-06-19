@@ -1,7 +1,6 @@
 package canvasScaleCalculator;
 
 import java.awt.EventQueue;
-import java.awt.FileDialog;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,9 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.awt.event.ItemEvent;
 
 import javax.imageio.ImageIO;
@@ -318,6 +315,33 @@ public class GUIClass {
 		
 		btnBrowseForImage.setBounds(10, 11, 160, 30);
 		frmCanvasSizeCalculator.getContentPane().add(btnBrowseForImage);
+		
+		JButton btnUseOnlineImage = new JButton("Use Online Image");
+		
+		
+		
+		// Insert Link for Online Image
+		//----------------------------------------------------------------------------------------------------------------------------
+		
+		btnUseOnlineImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String str = JOptionPane.showInputDialog(null, "Insert direct link to image: ", "Insert Online Image", 1);
+				ImageHandler ih = new ImageHandler();
+				try {
+					if (ih.openImage(str) != null) {
+						BufferedImage image = ih.openImage(str);
+						xResField.setText(Integer.toString(image.getWidth()));
+						yResField.setText(Integer.toString(image.getHeight()));
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		//----------------------------------------------------------------------------------------------------------------------------
+		btnUseOnlineImage.setBounds(180, 11, 180, 30);
+		frmCanvasSizeCalculator.getContentPane().add(btnUseOnlineImage);
 		
 		
 		
