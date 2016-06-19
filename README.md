@@ -6,28 +6,23 @@ The program takes an image's resolution, and outputs scale values to plug into T
 
 Screenshot:
 
-![Screenshot](http://forums.pixeltailgames.com/uploads/default/original/2X/f/f8f1c625a786a229d2963d38ae97ac7f87b5a5b1.PNG)
+![Screenshot](http://forums.pixeltailgames.com/uploads/default/original/2X/9/927e2dd9fba10e9c593bf3e4172ceaca4d319206.PNG)
 
 Current known bugs;
 
  * None to report, inform me if any are found!
 
 Current version;
+
+  v1.2 "Confused Panda", June 19, 2016
+
+Previous version;
+
   v1.1.2 "Fluffy Panda Hotfix 2", June 19, 2016
-  
-
-Previous versions;
-
-  v1.1.1 "Fluffy Panda Hotfix 1", June 17, 2016
-  v1.1 "Fluffy Panda", June 17, 2016
-  v1.0 "Sassy Panda", June 17, 2016
 
 
 Changelog;
- * v1.1.2: Fixed an issue with the X and Y output values being swapped
- * v1.1.1: small bugfix for nullpointer exception when canceling out of file selection menu
- * Added Browse for Image button
- * When an image is selected, the resolution is put in the image resolution fields
+ * Added the ability to pull an image's resolution from an URL
 
 The binary can be downloaded here:
 https://github.com/QueenHidari/CanvasScaleCalculator/blob/master/Binaries/CanvasScaleCalculator.jar
